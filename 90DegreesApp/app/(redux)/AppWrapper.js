@@ -15,10 +15,26 @@ function AppWrapper() {
     <Stack>
       <Stack.Screen
         name="index"
-        options={{ title: "Home", headerShown: false }}
+        options={{ 
+          title: "Login", 
+          headerShown: true, 
+          headerStyle: { backgroundColor: "#0097B280" },
+        }}
       />
-      <Stack.Screen name="profile" options={{ title: "Profile" }} />
-      <Stack.Screen name="auth/login" options={{ title: "Login" }} />
+      <Stack.Screen
+        name="(tabs)/index"
+        options={{ 
+          title: "Home", 
+          headerStyle: { backgroundColor: "#0097B280" },
+        }}
+      />
+      <Stack.Screen
+        name="auth/register"
+        options={{ 
+          title: "Register", 
+          headerStyle: { backgroundColor: "#0097B280" },
+        }}
+      />
     </Stack>
   );
 }
