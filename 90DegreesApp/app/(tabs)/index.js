@@ -1,36 +1,36 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import Icon from "react-native-vector-icons/FontAwesome";
-import Fontisto from "@expo/vector-icons/Fontisto";
+import React, { useState } from "react";
+import { StyleSheet, Text, View, Button, Image, Alert } from "react-native";
+import * as ImagePicker from "expo-image-picker";
 
 const TabHome = () => {
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const pickImage = async () => {
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      Alert.alert("Permission to access camera roll is required!");
+      return;
+    }
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setSelectedImage(result.assets[0].uri);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome to Authentication</Text>
-      <Text style={styles.subtitle}>Technologies used:</Text>
-      <View style={styles.techList}>
-        <LinearGradient colors={["#61DBFB", "#35AFC2"]} style={styles.techItem}>
-          <Icon name="code" size={30} color="#fff" />
-          <Text style={styles.techText}>React Native</Text>
-        </LinearGradient>
-        <LinearGradient colors={["#764ABC", "#543B9A"]} style={styles.techItem}>
-          <Fontisto name="redux" size={30} color="#fff" />
-          <Text style={styles.techText}>Redux</Text>
-        </LinearGradient>
-        <LinearGradient colors={["#FF4154", "#D12B3A"]} style={styles.techItem}>
-          <Icon name="database" size={30} color="#fff" />
-          <Text style={styles.techText}>Tanstack Query</Text>
-        </LinearGradient>
-        <LinearGradient colors={["#0FAAFF", "#0B79C1"]} style={styles.techItem}>
-          <Icon name="wpforms" size={30} color="#fff" />
-          <Text style={styles.techText}>Formik</Text>
-        </LinearGradient>
-        <LinearGradient colors={["#000000", "#434343"]} style={styles.techItem}>
-          <Icon name="server" size={30} color="#fff" />
-          <Text style={styles.techText}>NodeJS API</Text>
-        </LinearGradient>
-      </View>
+      <Text style={styles.title}>Upload a Photo</Text>
+      <Button title="Pick an image from gallery" onPress={pickImage} />
+      {selectedImage && (
+        <Image source={{ uri: selectedImage }} style={styles.image} />
+      )}
     </View>
   );
 };
@@ -42,43 +42,19 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 20,
     backgroundColor: "#f5f5f5",
   },
   title: {
-    fontSize: 32,
+    fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
     textAlign: "center",
     color: "#333",
   },
-  subtitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 20,
-    textAlign: "center",
-    color: "#666",
-  },
-  techList: {
-    flexDirection: "column",
-    alignItems: "center",
-    width: "100%",
-  },
-  techItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "90%",
-    paddingVertical: 15,
-    paddingHorizontal: 10,
+  image: {
+    width: 200,
+    height: 200,
+    marginTop: 20,
     borderRadius: 10,
-    marginBottom: 15,
-    elevation: 5,
-  },
-  techText: {
-    fontSize: 18,
-    color: "#fff",
-    marginLeft: 10,
-    fontWeight: "bold",
   },
 });
