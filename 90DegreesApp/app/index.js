@@ -1,45 +1,126 @@
-import * as React from "react";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
-import { Video, ResizeMode } from "expo-av";
+import React, { useEffect } from "react";
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  Text,
+  TouchableOpacity,
+  Image,
+  Dimensions,
+  Platform,
+  ScrollView
+} from "react-native";
+import { Formik } from "formik";
+import * as Yup from "yup";
 import { useRouter } from "expo-router";
+import { useMutation } from "@tanstack/react-query";
+import { loginUser } from "./(services)/api/api";
+import { useDispatch, useSelector } from "react-redux";
+import { loginAction } from "./(redux)/authSlice";
+
+const LoginSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required("Required"),
+  password: Yup.string().min(6, "Too Short!").required("Required"),
+});
 
 export default function App() {
-  const video = React.useRef(null);
-  const [status, setStatus] = React.useState({});
   const router = useRouter();
-
+  //dispatch
+  const dispatch = useDispatch();
+  const mutation = useMutation({
+    mutationFn: loginUser,
+    mutationKey: ["login"],
+  });
+  // console.log(mutation);
+  const user = useSelector((state) => state.auth.user);
+  useEffect(() => {
+    if (user) {
+      router.push("/(tabs)");
+    }
+  }, []);
+  console.log("user", user);
   return (
-    <View style={styles.container}>
-      <Video
-        ref={video}
-        style={styles.video}
-        source={{
-          uri: "https://videos.pexels.com/video-files/5377700/5377700-sd_540_960_25fps.mp4",
-        }}
-        resizeMode={ResizeMode.COVER}
-        shouldPlay
-        isLooping
-        onPlaybackStatusUpdate={(status) => setStatus(() => status)}
-      />
-      <View style={styles.overlay}>
-        <Text style={styles.mainText}>Masynctech</Text>
-        <Text style={styles.subText}>Coding School</Text>
-        <Text style={styles.tagline}>Build Apps, Build Futures</Text>
-      </View>
-      <View style={styles.buttons}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => router.push("/auth/login")}
+    <View style={{
+      height: "100%",
+    }}>
+      <ScrollView style={{
+        backgroundColor: "white",
+      }}>
+          <Image style={{
+            alignSelf: "center",
+            width: Dimensions.get("window").width - 50,
+            height: Dimensions.get("window").height * 0.3,
+            resizeMode: "contain",
+            marginTop: 20,
+          }}source={require("../assets/logo.png")} />
+          <Formik
+          initialValues={{ email: "", password: "" }}
+          validationSchema={LoginSchema}
+          onSubmit={(values) => {
+            console.log(values);
+            mutation
+              .mutateAsync(values)
+              .then((data) => {
+                console.log("data", data);
+                dispatch(loginAction(data));
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+            router.push("/(tabs)");
+          }}
         >
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => router.push("/auth/register")}
-        >
-          <Text style={styles.buttonText}>Register</Text>
-        </TouchableOpacity>
-      </View>
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            errors,
+            touched,
+          }) => (
+            <View style={styles.form}>
+              <TextInput
+                style={styles.input}
+                placeholder="Email"
+                onChangeText={handleChange("email")}
+                onBlur={handleBlur("email")}
+                value={values.email}
+                keyboardType="email-address"
+              />
+              {errors.email && touched.email ? (
+                <Text style={styles.errorText}>{errors.email}</Text>
+              ) : null}
+              <TextInput
+                style={styles.input}
+                placeholder="Password"
+                onChangeText={handleChange("password")}
+                onBlur={handleBlur("password")}
+                value={values.password}
+                secureTextEntry
+              />
+              {errors.password && touched.password ? (
+                <Text style={styles.errorText}>{errors.password}</Text>
+              ) : null}
+              <TouchableOpacity onPress={() => router.push("/forgot-password")}>
+                <Text style={{ color: "#0097B2", marginBottom: 16 }}>Forgot Password?</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                <Text style={styles.buttonText}>Login</Text>
+              </TouchableOpacity>
+              <View style={{ flexDirection: "row", marginTop: 16 }}>
+                <Text>Don't have an account? </Text>
+                <TouchableOpacity onPress={() => router.replace("/auth/register")}>
+                  <Text style={{ color: "#0097B2" }}>Register now.</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
+        </Formik>
+      </ScrollView>
+      <View style={{
+        height: "10%",
+        backgroundColor: "#0097B280",
+      }}></View>
     </View>
   );
 }
@@ -48,53 +129,53 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-  },
-  video: {
-    ...StyleSheet.absoluteFillObject,
-  },
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    padding: 16,
+    backgroundColor: "#f5f5f5",
   },
-  mainText: {
-    color: "white",
-    fontSize: 68,
+  title: {
+    fontSize: 32,
     fontWeight: "bold",
-    textAlign: "center",
+    marginBottom: 24,
   },
-  subText: {
-    color: "white",
-    fontSize: 24,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  tagline: {
-    color: "white",
-    fontSize: 18,
-    fontStyle: "italic",
-    textAlign: "center",
-    marginTop: 10,
-  },
-  buttons: {
-    flexDirection: "row",
-    justifyContent: "space-around",
+  form: {
+    width: "100%",
     alignItems: "center",
-    position: "absolute",
-    bottom: 30,
-    left: 0,
-    right: 0,
+  },
+  input: {
+    height: 50,
+    width: "90%",
+    borderBottomWidth: 1,
+    borderColor: "#646363",
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    marginBottom: 16,
+    textAlign: "center",
+    fontSize: 16,
+    marginTop: 16,
+  },
+  errorText: {
+    color: "red",
+    marginBottom: 16,
   },
   button: {
-    backgroundColor: "#6200ea",
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 25,
-    elevation: 3, // Adds a shadow effect on Android
+    height: 50,
+    width: "90%",
+    backgroundColor: "#0097B2",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 16,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 10,
+      height: 10,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 3.84,
+    elevation: 10,
   },
   buttonText: {
-    color: "white",
+    color: "#fff",
     fontSize: 18,
     fontWeight: "bold",
   },
