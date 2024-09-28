@@ -20,7 +20,7 @@ import { loginAction } from "./(redux)/authSlice";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
-  password: Yup.string().min(6, "Too Short!").required("Required"),
+  password: Yup.string().min(4, "Too Short!").required("Required"),
 });
 
 export default function App() {
@@ -35,7 +35,7 @@ export default function App() {
   const user = useSelector((state) => state.auth.user);
   useEffect(() => {
     if (user) {
-      router.push("/(tabs)");
+      // router.push("/(tabs)");
     }
   }, []);
   console.log("user", user);
