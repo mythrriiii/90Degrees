@@ -5,7 +5,7 @@ const errorHandler = require("./middlewares/errorHandler");
 const app = express();
 //! Connect to mongodb
 mongoose
-  .connect("mongodb+srv://andyvvo2004:<db_password>@hackgtcluster.0ui9y.mongodb.net/?retryWrites=true&w=majority&appName=HackGTCluster")
+  .connect("mongodb+srv://andyvvo2004:90degrees@hackgtcluster.0ui9y.mongodb.net/")
   .then(() => console.log("Db connected successfully"))
   .catch((e) => console.log(e));
 
