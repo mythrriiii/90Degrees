@@ -3,7 +3,7 @@ import axios from "axios";
 export const registerUser = async (user) => {
   console.log(user);
   const response = await axios.post(
-    "https://grumpy-heads-cheat.loca.lt/api/users/register",
+    "https://witty-pens-like.loca.lt/api/users/register",
     user,
     {
       headers: {
@@ -15,7 +15,7 @@ export const registerUser = async (user) => {
 };
 export const loginUser = async (user) => {
   const response = await axios.post(
-    "https://grumpy-heads-cheat.loca.lt/api/users/login",
+    "https://witty-pens-like.loca.lt/api/users/login",
     user,
     {
       headers: {
