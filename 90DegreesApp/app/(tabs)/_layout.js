@@ -15,7 +15,17 @@ export default function RootLayout() {
         }}
       />
       {/* profile */}
+      <Tabs.Screen
+        name="index"
+        options={{
+          headerShown: false,
 
+          title: "Camera",
+          tabBarIcon: ({ color }) => (
+            <FontAwesome size={28} name="camera" color={color} />
+          ),
+        }}
+      />
       <Tabs.Screen
         name="profile"
         options={{
