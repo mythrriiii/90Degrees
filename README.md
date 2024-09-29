@@ -25,21 +25,21 @@ But don't worry now! We are here to help you always capture your right angles.
 
   
 ## 💁Meet the Team
--**Andy Vo** (Developer)
+-**Andy Vo** (Full-Stack Developer)
 
-description
+Andy is our all-around full-stack developer who seamlessly integrates both front-end and back-end systems. Their expertise ensures that every feature of the 90° app functions smoothly, providing users with a reliable and dynamic experience.
 
 -**Katniss Min** (UI/UX Designer)
 
-description
+Katniss is our creative UI/UX designer, crafting intuitive and visually striking interfaces. Her attention to user-centred design makes 90° easy to navigate, ensuring a seamless and enjoyable experience for users.
 
--**Leo Zheng** (Back-End Developer)
+-**Leo Zheng** (Full-Stack Developer)
 
-description
+Leo brings technical versatility to the team as a full-stack developer. They handle everything from UI functionality to server-side logic, ensuring that our app delivers an optimal user experience from start to finish.
 
--**Mythri Muralikannan** (Front-End Developer)
+-**Mythri Muralikannan** (ML/AI Deployment Automation)
 
-description
+Mythri specialises in ML/AI deployment and automation, providing the intelligence behind 90°. Her expertise ensures our AI-powered features run efficiently and adapt to user preferences, making every shot perfectly aligned with individual needs.
   
 ## 📍The Problem
 We’ve all experienced the frustration of handing our phone to a friend for a photo, only to end up with hundreds of unusable pictures. Explaining your preferred angles can be awkward, and no matter how detailed the instructions, the result is often disappointing. The process is time-consuming and tedious, leaving you with less-than-perfect memories. 90° addresses this issue by providing real-time, AI-driven guidance for photographers, ensuring that every shot captures your best angles without the need for long explanations or repeated attempts.
@@ -81,7 +81,7 @@ So how does 90° answer these [Problems](#the-problem)?
 ### ✏️Design Thinking Process
 Our thought process for developing 90° was driven by a user-centric approach, as we wanted to address the frustrations people experience when getting the perfect photo.
 
-**1. Empathize:** Having experience with endless struggles to communicate our preferred angles and getting unsatisfactory results after multiple attempts really helped us get in the shoes of our app’s users.
+**1. Empathise:** Having experience with endless struggles to communicate our preferred angles and getting unsatisfactory results after multiple attempts really helped us get in the shoes of our app’s users.
 
 **2. Define:** The core problem was how difficult it is to consistently capture flattering photos without wasting time and effort. This helped us focus on creating a solution that would make the photo-taking process intuitive and reliable for both users and photographers.
 
@@ -98,13 +98,17 @@ description
 ### 🖱️Frontend
 Our front end comprised two distinct components: Figma and React Native.
 
-In Figma, we crafted a prototype to visualize the app's design, focusing on branding and personal toolkit elements. React Native then materialized this prototype into our fully functional app.
+In Figma, we crafted a prototype to visualise the app's design, focusing on branding and personal toolkit elements. React Native then materialised this prototype into our fully functional app.
 
 ### 📊MATLAB
-MATLAB is what we used a lot of things....
+MATLAB is where we did a lot of things....
 
 ## 💢Challenges
-description
+Throughout our hackathon journey, integrating all the components of 90° was the biggest challenge for the team. Bringing together the front-end, back-end, AI/ML models, and deployment processes in a coherent matter brought several issues and technical blocks to our team. Ensuring that the AI-driven angle detection interacts smoothly with the user interface, while also managing real-time camera functions, proved to be complex.
+
+Additionally, one of our teammates’s Amazon AWS ‘super secret key’ accidentally got leaked onto a public GitHub repository, which caused an unexpected delay in our hacking journey. Luckily, we were able to fix it as soon as possible and did not have further security breaches. Through this situation, we learned the critical importance of safeguarding sensitive information, such as API keys and credentials, especially when collaborating on public platforms like GitHub. 
+
+Despite these insane situations, we were still able to come through all situations and display our final app - 90°.
 
 ## 🚀Try it Out
 Here’s the link to our Figma prototype: https://www.figma.com/proto/POstEeFOL4tMNcIxw6VO98/90-degrees?node-id=55-3&starting-point-node-id=55%3A3
@@ -121,5 +125,7 @@ We made this app for anyone who wants good photos of themselves. Just download o
 - **Accessibility:** We want to make our app accessible to people hard of hearing and sight as we aim to include anyone in our target audience.
 - **Automated lighting sensor:** We want to train the AI further so that it recognises good and bad lighting when taking photos.
 - **Application to non-human objects:** We aim to add a feature where we let users know what the optimal angle is when taking photos that are non-human.
+
+
 
 
