@@ -5,7 +5,6 @@ import Icon from "react-native-vector-icons/FontAwesome";
 const Settings = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Settings</Text>
       <View style={styles.section}>
         <TouchableOpacity style={styles.option}>
           <Icon name="user" size={24} color="#4caf50" />
