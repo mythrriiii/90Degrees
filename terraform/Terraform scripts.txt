@@ -1,0 +1,1 @@
+Terraform scripts are too large and contain sensitive information regarding AWS credentials posing a security risk to our account. A zip file containing all the terraform scripts have been attached under a Google Drive link under the TERRAFORM subcategory in the readme. 
