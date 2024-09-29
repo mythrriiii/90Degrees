@@ -27,7 +27,7 @@ But don't worry now! We are here to help you always capture your right angles.
 ## 💁Meet the Team
 -**Andy Vo** (Full-Stack Developer)
 
-Andy is our all-around full-stack developer who seamlessly integrates both front-end and back-end systems. Their expertise ensures that every feature of the 90° app functions smoothly, providing users with a reliable and dynamic experience.
+Andy is our all-around full-stack developer who seamlessly integrates both front-end and back-end systems. His expertise ensures that every feature of the 90° app functions smoothly, providing users with a reliable and dynamic experience.
 
 -**Katniss Min** (UI/UX Designer)
 
@@ -35,7 +35,7 @@ Katniss is our creative UI/UX designer, crafting intuitive and visually striking
 
 -**Leo Zheng** (Full-Stack Developer)
 
-Leo brings technical versatility to the team as a full-stack developer. They handle everything from UI functionality to server-side logic, ensuring that our app delivers an optimal user experience from start to finish.
+Leo brings technical versatility to the team as a full-stack developer. He handles everything from UI functionality to server-side logic, ensuring that our app delivers an optimal user experience from start to finish.
 
 -**Mythri Muralikannan** (ML/AI Deployment Automation)
 
