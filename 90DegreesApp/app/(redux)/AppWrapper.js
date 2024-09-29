@@ -22,10 +22,10 @@ function AppWrapper() {
         }}
       />
       <Stack.Screen
-        name="(tabs)"
+        name="(tabs)/index"
         options={{ 
           title: "Home", 
-          headerShown: false,
+          headerStyle: { backgroundColor: "#0097B280" },
         }}
       />
       <Stack.Screen
