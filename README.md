@@ -93,7 +93,7 @@ Our thought process for developing 90° was driven by a user-centric approach, a
 
 ## 🔌The Tech
 ### 🖥️Backend
-description
+The Backend utilizes MongoDB to store data and Mongoose to integrate MongoDB interactions with JavaScript. We used three important endpoints for our application: one for user registration, one for logging in users, and the last for uploading and storing images. To ensure the safety of our users, we used bcrypt to add a salt to the passwords in case our database is accessed by a malicious actor. We also implemented AWS as part of our Backend to store user images, allowing quick access of data using AWS servers and secure storage of user information.
 
 ### 🖱️Frontend
 Our front end comprised two distinct components: Figma and React Native. We designed our initial model on Figma and made our product based off of the design. We were able to translate the Figma design into Javascript, CSS, and HTML code.
