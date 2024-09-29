@@ -26,8 +26,12 @@ const TabHome = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Upload a Photo</Text>
-      <Button title="Pick an image from gallery" onPress={pickImage} />
+      <Text style={styles.title}>Welcome to 90 Degrees!</Text>
+      <Text style={styles.subtitle}>Let us find the RIGHT ANGLE for you!</Text>
+      <Text style={styles.instructions}>
+        Please upload some sample photos to get started.
+      </Text>
+      <Button title="Upload a Photo" onPress={pickImage} />
       {selectedImage && (
         <Image source={{ uri: selectedImage }} style={styles.image} />
       )}
@@ -47,9 +51,22 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 20,
+    marginBottom: 10,
     textAlign: "center",
     color: "#333",
+  },
+  subtitle: {
+    fontSize: 18,
+    fontWeight: "normal",
+    marginBottom: 10,
+    textAlign: "center",
+    color: "#333",
+  },
+  instructions: {
+    fontSize: 16,
+    marginBottom: 20,
+    textAlign: "center",
+    color: "#555",
   },
   image: {
     width: 200,
