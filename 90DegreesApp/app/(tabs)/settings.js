@@ -1,11 +1,20 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { useDispatch } from "react-redux";
+import { useRouter } from "expo-router";
+import { logoutAction } from "../(redux)/authSlice";
 
 const Settings = () => {
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logoutAction());
+    router.replace("/auth/login");
+  };
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Settings</Text>
       <View style={styles.section}>
         <TouchableOpacity style={styles.option}>
           <Icon name="user" size={24} color="#4caf50" />
@@ -47,7 +56,7 @@ const Settings = () => {
             style={styles.optionIcon}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.option}>
+        <TouchableOpacity style={styles.option} onPress={handleLogout}>
           <Icon name="sign-out" size={24} color="#e91e63" />
           <Text style={styles.optionText}>Logout</Text>
           <Icon

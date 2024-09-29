@@ -1,15 +1,21 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Button, Image, Alert } from "react-native";
+import { StyleSheet, Text, View, Button, Image, Alert, TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system"; // To get image file data
 import { createImage } from "../(services)/api/api"; // Import the createImage function
 import { useSelector } from "react-redux";
-
+import { useRouter } from "expo-router";
 
 const TabHome = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [uploading, setUploading] = useState(false);
   const user = useSelector((state) => state.auth.user);
+
+  const router = useRouter();
+
+  const handleCamera = () => {
+    router.replace("/camera");
+  };
 
   const pickImage = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -62,8 +68,48 @@ const TabHome = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Upload a Photo</Text>
-      <Button title="Pick an image from gallery" onPress={pickImage} />
+      <Text style={{
+        fontSize: 60,
+        fontWeight: "normal",
+        textAlign: "center",
+        color: "#333",
+      }}>welcome to</Text>
+      <Text style={{
+        fontSize: 100,
+        fontWeight: "semibold",
+        marginBottom: 50,
+        textAlign: "center",
+        color: "#333",
+      }}>90°</Text>
+      <Text style={styles.title}>To get started, please upload some photos</Text>
+      <TouchableOpacity style={{
+        backgroundColor: "#0097B2",
+        paddingHorizontal: 110,
+        paddingVertical: 10,
+        borderRadius: 5,
+        marginTop: 20,
+      }} onPress={pickImage}>
+        <Text style={{
+          color: "black",
+          fontSize: 20,
+          fontWeight: "normal",
+          textAlign: "center",
+        }}>Upload</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={{
+        backgroundColor: "#FFBD59",
+        paddingHorizontal: 110,
+        paddingVertical: 10,
+        borderRadius: 5,
+        marginTop: 20,
+      }} onPress={handleCamera}>
+        <Text style={{
+          color: "black",
+          fontSize: 20,
+          fontWeight: "normal",
+          textAlign: "center",
+        }}>Camera</Text>
+      </TouchableOpacity>
       {uploading && <Text style={styles.uploadingText}>Uploading...</Text>}
       {selectedImage && (
         <Image source={{ uri: selectedImage }} style={styles.image} />
@@ -82,8 +128,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#f5f5f5",
   },
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
+    fontSize: 16,
+    fontWeight: "normal",
     marginBottom: 20,
     textAlign: "center",
     color: "#333",
@@ -96,7 +142,9 @@ const styles = StyleSheet.create({
   },
   uploadingText: {
     fontSize: 16,
-    color: "blue",
-    marginTop: 10,
+    fontWeight: "normal",
+    marginBottom: 20,
+    textAlign: "center",
+    color: "white",
   },
 });
