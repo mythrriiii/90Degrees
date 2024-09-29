@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { Text, View, StyleSheet, Image } from 'react-native';
 import Constants from 'expo-constants';
-import { Camera, CameraView } from 'expo-camera';
-import * as MediaLibrary from 'expo-media-library';
+import { Camera } from 'expo-camera';
 import Button from '../../src/components/Button';
 
 export default function App() {
@@ -12,7 +11,6 @@ export default function App() {
 
   useEffect(() => {
     (async () => {
-      MediaLibrary.requestPermissionsAsync();
       const cameraStatus = await Camera.requestCameraPermissionsAsync();
       setHasCameraPermission(cameraStatus.status === 'granted');
     })();
@@ -22,7 +20,6 @@ export default function App() {
     if (cameraRef) {
       try {
         const data = await cameraRef.current.takePictureAsync();
-        console.log(data);
         setImage(data.uri);
       } catch (error) {
         console.log(error);
@@ -30,15 +27,29 @@ export default function App() {
     }
   };
 
-  const savePicture = async () => {
+  const uploadImageToServer = async () => {
     if (image) {
       try {
-        const asset = await MediaLibrary.createAssetAsync(image);
-        alert('Picture saved! 🎉');
+        let formData = new FormData();
+        formData.append("photo", {
+          uri: image,
+          name: `photo-${Date.now()}.jpg`,
+          type: "image/jpg",
+        });
+
+        const response = await fetch("http://YOUR_BACKEND_URL/upload", {
+          method: "POST",
+          body: formData,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        const result = await response.json();
+        alert('Image uploaded successfully: ' + result.imageUrl);
         setImage(null);
-        console.log('saved successfully');
       } catch (error) {
-        console.log(error);
+        console.log("Error uploading image: ", error);
       }
     }
   };
@@ -50,31 +61,17 @@ export default function App() {
   return (
     <View style={styles.container}>
       {!image ? (
-        <CameraView
+        <Camera
           style={styles.camera}
           ref={cameraRef}
-        >
-        </CameraView>
+        />
       ) : (
         <Image source={{ uri: image }} style={styles.camera} />
       )}
 
       <View style={styles.controls}>
         {image ? (
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              paddingHorizontal: 50,
-            }}
-          >
-            <Button
-              title="Re-take"
-              onPress={() => setImage(null)}
-              icon="retweet"
-            />
-            <Button title="Save" onPress={savePicture} icon="check" />
-          </View>
+          <Button title="Upload" onPress={uploadImageToServer} icon="cloud-upload" />
         ) : (
           <Button title="Take a picture" onPress={takePicture} icon="camera" />
         )}
@@ -94,24 +91,8 @@ const styles = StyleSheet.create({
   controls: {
     flex: 0.5,
   },
-  button: {
-    height: 40,
-    borderRadius: 6,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    fontWeight: 'bold',
-    fontSize: 16,
-    color: '#E9730F',
-    marginLeft: 10,
-  },
   camera: {
     flex: 5,
     borderRadius: 20,
-  },
-  topControls: {
-    flex: 1,
   },
 });
