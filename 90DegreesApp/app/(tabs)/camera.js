@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Image, Alert } from 'react-native';
 import Constants from 'expo-constants';
-import { Camera, CameraType } from 'expo-camera';
+import { Camera, CameraView } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
-import { MaterialIcons } from '@expo/vector-icons';
-import Button from '../../src/components/Button';
+import * as FileSystem from 'expo-file-system'; // To get image file data
+import { createImage } from '../(services)/api/api'; // Import the createImage function
+import { useSelector } from "react-redux";
 
 export default function App() {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [image, setImage] = useState(null);
-  const [type, setType] = useState(Camera.Constants.Type.back);
-  const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
   const cameraRef = useRef(null);
+  const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     (async () => {
@@ -33,13 +33,37 @@ export default function App() {
     }
   };
 
+  const uploadImage = async (imageUri) => {
+    try {
+      // Get file info from the image URI
+      const fileInfo = await FileSystem.getInfoAsync(imageUri);
+
+      // Create the file object expected by createImage function
+      const file = {
+        uri: imageUri,
+        name: fileInfo.uri.split('/').pop(), // Get the filename
+        type: 'image/jpeg', // Assuming JPEG, adjust accordingly based on the picked file
+      };
+
+      // Call the createImage API to upload the image
+      const response = await createImage(file, user.email);
+      
+      // Handle the response
+      console.log(response);
+      Alert.alert("Upload Success", `Image uploaded successfully!`);
+    } catch (error) {
+      console.error(error);
+      Alert.alert("Error", "Failed to upload image");
+    }
+  };
+
   const savePicture = async () => {
     if (image) {
       try {
-        const asset = await MediaLibrary.createAssetAsync(image);
-        alert('Picture saved! 🎉');
+        await MediaLibrary.createAssetAsync(image);
+        await uploadImage(image); // Upload the image after saving
+        alert('Picture saved and uploaded! 🎉');
         setImage(null);
-        console.log('saved successfully');
       } catch (error) {
         console.log(error);
       }
@@ -53,41 +77,10 @@ export default function App() {
   return (
     <View style={styles.container}>
       {!image ? (
-        <Camera
+        <CameraView
           style={styles.camera}
-          type={type}
           ref={cameraRef}
-          flashMode={flash}
-        >
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              paddingHorizontal: 30,
-            }}
-          >
-            <Button
-              title=""
-              icon="retweet"
-              onPress={() => {
-                setType(
-                  type === CameraType.back ? CameraType.front : CameraType.back
-                );
-              }}
-            />
-            <Button
-              onPress={() =>
-                setFlash(
-                  flash === Camera.Constants.FlashMode.off
-                    ? Camera.Constants.FlashMode.on
-                    : Camera.Constants.FlashMode.off
-                )
-              }
-              icon="flash"
-              color={flash === Camera.Constants.FlashMode.off ? 'gray' : '#fff'}
-            />
-          </View>
-        </Camera>
+        />
       ) : (
         <Image source={{ uri: image }} style={styles.camera} />
       )}
@@ -127,24 +120,8 @@ const styles = StyleSheet.create({
   controls: {
     flex: 0.5,
   },
-  button: {
-    height: 40,
-    borderRadius: 6,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    fontWeight: 'bold',
-    fontSize: 16,
-    color: '#E9730F',
-    marginLeft: 10,
-  },
   camera: {
     flex: 5,
     borderRadius: 20,
-  },
-  topControls: {
-    flex: 1,
   },
 });

@@ -24,9 +24,10 @@ export const loginUser = async (user) => {
 };
 
 // Create Image
-export const createImage = async (imageFile) => {
+export const createImage = async (imageFile, email) => {
   const formData = new FormData();
   formData.append("photo", imageFile);
+  formData.append("email", email);
 
   const response = await axios.post(url + "/upload", formData, {
     headers: {
