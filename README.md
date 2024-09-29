@@ -4,6 +4,9 @@ Ever dread having to take pictures because people can never seem to get your ang
 
 But don't worry now! We are here to help you always capture your right angles. 
 
+<img src="https://github.com/user-attachments/assets/82543d87-895b-4abc-9117-98ad6f139cb5" width="400"/>
+
+
 
 
 ## 📑Table of Contents
@@ -27,6 +30,10 @@ But don't worry now! We are here to help you always capture your right angles.
 
   
 ## 💁Meet the Team
+
+<img width="300" alt="image" src="https://github.com/user-attachments/assets/61668e9d-1528-461f-b6c9-ac9fdf0c4824">
+
+
 -**Andy Vo** (Full-Stack Developer)
 
 Andy is our all-around full-stack developer who seamlessly integrates both front-end and back-end systems. His expertise ensures that every feature of the 90° app functions smoothly, providing users with a reliable and dynamic experience.
@@ -45,6 +52,9 @@ Mythri specialises in ML/AI deployment and automation, providing the intelligenc
   
 ## 📍The Problem
 We’ve all experienced the frustration of handing our phone to a friend for a photo, only to end up with hundreds of unusable pictures. Explaining your preferred angles can be awkward, and no matter how detailed the instructions, the result is often disappointing. The process is time-consuming and tedious, leaving you with less-than-perfect memories. 90° addresses this issue by providing real-time, AI-driven guidance for photographers, ensuring that every shot captures your best angles without the need for long explanations or repeated attempts.
+
+<img src="https://github.com/user-attachments/assets/0fe96133-ffc0-4fdc-9474-4e55b8275453" width="400"/>
+
 
 
 ## 🛠️The Solution
@@ -109,6 +119,33 @@ In Figma, we crafted a prototype to visualise the app's design, focusing on bran
 <img width="200" alt="image" src="https://github.com/user-attachments/assets/f2a0bde8-0005-4944-81f5-368495ec22d2">
 
 
+
+### Our Integrated Process
+
+<img src="https://github.com/user-attachments/assets/44cc5442-8c8c-4585-95fa-c2e577e928a7" width="400"/>
+
+
+
+**User**
+- Interacts with the App frontend on their phones
+- To get a better feel of the UI/UX they can access our figma
+
+**Terraform**
+- Terraform is used to define our infrastucture model and make use of AWS to include:
+  - IAM: for defining roles and policies
+  - S3: to store the state of the environment and pictures
+  - EC2: to be the server created with all the required packages installed
+
+**MongoDB**
+- Each time a new user is created via the frontend of the app, their login data and authentication is stored here
+- For each user, the photos stored in S3 are categorized and also stored in MongoDB
+
+**MATLAB**
+- The ML model is traned based on the data provided via MongoDB of good and bad pictures.
+
+Additionally the pictures clicked are automatically stored in the User's ohone gallery. 
+
+
 ### 🍃Machine Learning Model
 Our model effectively combines deep learning (for feature extraction via AlexNet) and classical machine learning (SVM) to classify the images in your dataset.
 - Supervised binary classifier: Class 0 and Class 1.
@@ -125,12 +162,15 @@ Our model effectively combines deep learning (for feature extraction via AlexNet
 https://drive.google.com/file/d/1AoAbIwdtFBxKC9_TU8Agc15NkmT_UZ3B/view?usp=sharing
 
 
-Why did we use Terraform?
+**Why did we use Terraform?**
 - terraform defines infrastructure using code and helps making infrastructure changes version-controlled and easier to review.
 - it automates the deployment and management of all required resources.
-Our Motive
+
+**Our Motive**
 - to use Terraform as the next step after app prototyping as a strategic move to transition from a development phase to a scalable, maintainable, and production-ready infrastructure.
-Our Uses
+
+**Our Uses**
+Our final deployment model is called final_deploy_terraform and the rest are just initial versions that we tested out python and matlab models on. We had a few more EC2 instances but that data was lost and we don't have access to any pictures anymore. 
 - backend.tf: enables remote state management -- terraform state is stored in S3, enabling collaboration and locking with DynamoDB to prevent simultaneous updates.
 - variables.tf: file helps centralize configuration values. defined to easily adjust values like the AWS region, EC2 instance type, MongoDB credentials, and SSH key.
 - s3.tf: sets up an S3 bucket to store ML models and data, with versioning and server-side encryption for security.
@@ -166,9 +206,9 @@ Why MATLAB, not Python?
 
 <img height="300" alt="Training data" src="https://github.com/user-attachments/assets/be0b2026-d787-4b73-98de-a6ebf0e3eadf">
 
-<img width="300" alt="Confusion matrix" src="https://github.com/user-attachments/assets/48e229d2-0d9b-455d-9075-38f9ffb40a92">
+<img height="300" alt="Confusion matrix" src="https://github.com/user-attachments/assets/48e229d2-0d9b-455d-9075-38f9ffb40a92">
 
-<img src="https://github.com/user-attachments/assets/a9aa1643-3d5a-427e-b690-3622b45402c4" width="400"/>
+<img src="https://github.com/user-attachments/assets/a9aa1643-3d5a-427e-b690-3622b45402c4" height="300"/>
 
 
 
