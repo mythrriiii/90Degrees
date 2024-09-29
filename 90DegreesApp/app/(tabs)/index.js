@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Button, Image, Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import * as FileSystem from "expo-file-system"; // To get image file data
+import { createImage } from "../(services)/api/api"; // Import the createImage function
 
 const TabHome = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [uploading, setUploading] = useState(false);
 
   const pickImage = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -12,6 +15,7 @@ const TabHome = () => {
       Alert.alert("Permission to access camera roll is required!");
       return;
     }
+
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
@@ -21,17 +25,43 @@ const TabHome = () => {
 
     if (!result.canceled) {
       setSelectedImage(result.assets[0].uri);
+      await uploadImage(result.assets[0].uri);
+    }
+  };
+
+  const uploadImage = async (imageUri) => {
+    setUploading(true);
+
+    try {
+      // Get file info from the image URI
+      const fileInfo = await FileSystem.getInfoAsync(imageUri);
+
+      // Create the file object expected by createImage function
+      const file = {
+        uri: imageUri,
+        name: fileInfo.uri.split('/').pop(), // Get the filename
+        type: 'image/jpeg', // Assuming JPEG, adjust accordingly based on the picked file
+      };
+
+      // Call the createImage API to upload the image
+      const response = await createImage(file);
+      
+      // Handle the response
+      console.log(response.imageUrl);
+      Alert.alert("Upload Success", `Image URL: ${response.imageUrl}`);
+    } catch (error) {
+      console.error(error);
+      Alert.alert("Error", "Failed to upload image");
+    } finally {
+      setUploading(false);
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome to 90 Degrees!</Text>
-      <Text style={styles.subtitle}>Let us find the RIGHT ANGLE for you!</Text>
-      <Text style={styles.instructions}>
-        Please upload some sample photos to get started.
-      </Text>
-      <Button title="Upload a Photo" onPress={pickImage} />
+      <Text style={styles.title}>Upload a Photo</Text>
+      <Button title="Pick an image from gallery" onPress={pickImage} />
+      {uploading && <Text style={styles.uploadingText}>Uploading...</Text>}
       {selectedImage && (
         <Image source={{ uri: selectedImage }} style={styles.image} />
       )}
@@ -51,27 +81,19 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 10,
-    textAlign: "center",
-    color: "#333",
-  },
-  subtitle: {
-    fontSize: 18,
-    fontWeight: "normal",
-    marginBottom: 10,
-    textAlign: "center",
-    color: "#333",
-  },
-  instructions: {
-    fontSize: 16,
     marginBottom: 20,
     textAlign: "center",
-    color: "#555",
+    color: "#333",
   },
   image: {
     width: 200,
     height: 200,
     marginTop: 20,
     borderRadius: 10,
+  },
+  uploadingText: {
+    fontSize: 16,
+    color: "blue",
+    marginTop: 10,
   },
 });
