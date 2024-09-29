@@ -96,7 +96,7 @@ Our thought process for developing 90° was driven by a user-centric approach, a
 description
 
 ### 🖱️Frontend
-Our front end comprised two distinct components: Figma and React Native.
+Our front end comprised two distinct components: Figma and React Native. We designed our initial model on Figma and made our product based off of the design. We were able to translate the Figma design into Javascript, CSS, and HTML code.
 
 In Figma, we crafted a prototype to visualise the app's design, focusing on branding and personal toolkit elements. React Native then materialised this prototype into our fully functional app.
 
