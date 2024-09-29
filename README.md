@@ -142,6 +142,10 @@ Why MATLAB, not Python?
 - training: trains the model
 - deployment: (mimics the camera on the app) real-time feedback GOOD or BAD angle.
 
+<img width="151" alt="Training data" src="https://github.com/user-attachments/assets/be0b2026-d787-4b73-98de-a6ebf0e3eadf">
+
+<img width="419" alt="Confusion matrix" src="https://github.com/user-attachments/assets/48e229d2-0d9b-455d-9075-38f9ffb40a92">
+
 
 
 ## 💢Challenges
