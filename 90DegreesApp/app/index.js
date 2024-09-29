@@ -67,7 +67,7 @@ export default function App() {
               .catch((err) => {
                 console.log(err);
               });
-            router.push("/(tabs)");
+            router.replace("/(tabs)");
           }}
         >
           {({

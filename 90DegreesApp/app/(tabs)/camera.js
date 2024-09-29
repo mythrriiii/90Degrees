@@ -13,6 +13,8 @@ export default function App() {
   const cameraRef = useRef(null);
   const user = useSelector((state) => state.auth.user);
 
+  
+
   useEffect(() => {
     (async () => {
       MediaLibrary.requestPermissionsAsync();
@@ -102,7 +104,7 @@ export default function App() {
             <Button title="Save" onPress={savePicture} icon="check" />
           </View>
         ) : (
-          <Button title="Take a picture" onPress={takePicture} icon="camera" />
+          <Button style={{backgroundColor:"#FFFFFF"}}title="Take a picture" onPress={takePicture} icon="camera" />
         )}
       </View>
     </View>
