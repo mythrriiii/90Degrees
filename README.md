@@ -97,10 +97,17 @@ Our thought process for developing 90° was driven by a user-centric approach, a
 ### 🖥️Backend
 The Backend utilises MongoDB to store data and Mongoose to integrate MongoDB interactions with JavaScript. We used three important endpoints for our application: one for user registration, one for logging in users, and the last for uploading and storing images. To ensure the safety of our users, we used bcrypt to add a salt to the passwords in case our database is accessed by a malicious actor. We also implemented AWS as part of our Backend to store user images, allowing quick access of data using AWS servers and secure storage of user information.
 
+<img src="https://github.com/user-attachments/assets/8c148e30-8a80-4055-93e8-f3a7533fb437" width="400" />
+
+
+
 ### 🖱️Frontend
 Our front end comprised two distinct components: Figma and React Native.
 
 In Figma, we crafted a prototype to visualise the app's design, focusing on branding and personal toolkit elements. React Native then materialised this prototype into our fully functional app.
+
+<img width="200" alt="image" src="https://github.com/user-attachments/assets/f2a0bde8-0005-4944-81f5-368495ec22d2">
+
 
 ### 🍃Machine Learning Model
 Our model effectively combines deep learning (for feature extraction via AlexNet) and classical machine learning (SVM) to classify the images in your dataset.
@@ -131,7 +138,11 @@ Our Uses
 - landa.tf: deploys the Lambda function that processes ML models, with permissions to access the S3 bucket. currently implemented in JS --> goal is for centralization via lambda functions
 - ec2.tf: sets up an EC2 instance for the ML environment, installing Python, dependencies, and MATLAB runtime.
 - mongodb.tf: integrates MongoDB Atlas, creating a MongoDB cluster, users, and configuring IP whitelisting.
-- Integrating these versatile Terraform capabilities to demonstrate robust, scalable, and automated infrastructure management for our deployment. 
+- Integrating these versatile Terraform capabilities to demonstrate robust, scalable, and automated infrastructure management for our deployment.
+
+
+<img src="https://github.com/user-attachments/assets/4b09bed6-99d9-4156-abae-188190c549a5" width="400"/>
+
 
 
 
@@ -157,6 +168,10 @@ Why MATLAB, not Python?
 
 <img width="300" alt="Confusion matrix" src="https://github.com/user-attachments/assets/48e229d2-0d9b-455d-9075-38f9ffb40a92">
 
+<img src="https://github.com/user-attachments/assets/a9aa1643-3d5a-427e-b690-3622b45402c4" width="400"/>
+
+
+
 
 
 ## 💢Challenges
@@ -166,7 +181,8 @@ Additionally, one of our teammates’s AWS ‘super secret key’ accidentally g
 
 Despite these insane situations, we were still able to come through all situations and display our final app - 90°.
 
-<img width="391" alt="Big file" src="https://github.com/user-attachments/assets/67f0158f-c4b6-427e-83f1-4ec6739ac542">
+<img width="200" alt="Big file" src="https://github.com/user-attachments/assets/67f0158f-c4b6-427e-83f1-4ec6739ac542">
+
 
 
 
@@ -181,7 +197,7 @@ For the server to work, you will likely need to create your own firebase project
 ## 🎯Target Audience
 We made this app for anyone who wants good photos of themselves. Just download our app, select your favourites, and hand the phone over to anyone for the most perfect photo of your life.
 
-![image](https://github.com/user-attachments/assets/3d5dbe36-eeab-46cc-b25d-f3fecbf437c9)
+<img src="https://github.com/user-attachments/assets/3d5dbe36-eeab-46cc-b25d-f3fecbf437c9" width="400"/>
 
 
 ## 🚀Future Prospects
