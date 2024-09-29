@@ -1,4 +1,4 @@
-# 90°
+# 90° - https://www.90-degrees.co/
 
 Ever dread having to take pictures because people can never seem to get your angles right? You hand over your phone, spend ages just explaining how you want things to be, treading the line between instructions and being ungrateful, just to end up with 258 terrible pictures in your photo gallery. Not one perfect picture.
 
@@ -10,13 +10,15 @@ But don't worry now! We are here to help you always capture your right angles.
 - [💁Meet the Team](#meet-the-team)
 - [📍The Problem](#the-problem)
 - [🛠️The Solution](#the-solution)
-  - [🤖What is Milestone?](#what-is-milestone)
+  - [🤖What is 90°?](#what-is-90°)
   - [📝What is the process?](#what-is-the-process)
   - [🧠Why does it work?](#why-does-it-work)
   - [✏️Design Thinking Process](#Design-Thinking-Process)
 - [🔌The Tech](#the-tech)
   - [🖥️Backend](#backend)
   - [🖱️Frontend](#frontend)
+  - [🍃Machine Learning Model](#Machine-Learning-Model)
+  - [🔮Terraform](#Terraform)
   - [📊MATLAB](#matlab)
 - [💢Challenges](#challenges)
 - [🚀Try it Out](#try-it-out)
@@ -37,7 +39,7 @@ Katniss is our creative UI/UX designer, crafting intuitive and visually striking
 
 Leo brings technical versatility to the team as a full-stack developer. He handles everything from UI functionality to server-side logic, ensuring that our app delivers an optimal user experience from start to finish.
 
--**Mythri Muralikannan** (ML/AI Deployment Automation)
+-**Mythri Muralikannan** (AI/ML Dev Ops)
 
 Mythri specialises in ML/AI deployment and automation, providing the intelligence behind 90°. Her expertise ensures our AI-powered features run efficiently and adapt to user preferences, making every shot perfectly aligned with individual needs.
   
@@ -67,7 +69,7 @@ The app interface is pretty straightforward and super user-friendly. Let's break
 ### 🧠Why does it work?
 So how does 90° answer these [Problems](#the-problem)?
 
-**Automated Angle Detection:** 90° uses AI to identify your best angles based on your preferences, ensuring every shot is your favourite.
+**Automated Angle Detection:** 90° uses a Machine Learning model to identify your best angles based on your preferences, ensuring every shot is your favourite.
 
 **Customizable Preferences:** You can set up specific angles and framing preferences, so anyone using your phone will capture photos exactly how you want them, without long explanations.  
 
@@ -93,22 +95,62 @@ Our thought process for developing 90° was driven by a user-centric approach, a
 
 ## 🔌The Tech
 ### 🖥️Backend
-The Backend utilizes MongoDB to store data and Mongoose to integrate MongoDB interactions with JavaScript. We used three important endpoints for our application: one for user registration, one for logging in users, and the last for uploading and storing images. To ensure the safety of our users, we used bcrypt to add a salt to the passwords in case our database is accessed by a malicious actor. We also implemented AWS as part of our Backend to store user images, allowing quick access of data using AWS servers and secure storage of user information.
+The Backend utilises MongoDB to store data and Mongoose to integrate MongoDB interactions with JavaScript. We used three important endpoints for our application: one for user registration, one for logging in users, and the last for uploading and storing images. To ensure the safety of our users, we used bcrypt to add a salt to the passwords in case our database is accessed by a malicious actor. We also implemented AWS as part of our Backend to store user images, allowing quick access of data using AWS servers and secure storage of user information.
 
 ### 🖱️Frontend
-Our front end comprised two distinct components: Figma and React Native. We designed our initial model on Figma and made our product based off of the design. We were able to translate the Figma design into Javascript, CSS, and HTML code.
+Our front end comprised two distinct components: Figma and React Native.
 
 In Figma, we crafted a prototype to visualise the app's design, focusing on branding and personal toolkit elements. React Native then materialised this prototype into our fully functional app.
 
+### 🍃Machine Learning Model
+Our model effectively combines deep learning (for feature extraction via AlexNet) and classical machine learning (SVM) to classify the images in your dataset.
+- Supervised binary classifier: Class 0 and Class 1.
+- Dataset is split into 80% training and 20% testing.
+- Uses AlexNet (a pretrained CNN) to extract features from images using the 'fc7' fully connected layer.
+- Features are extracted from both the training and test sets via the 'fc7' layer.
+- A linear Support Vector Machine (SVM) classifier is trained on the extracted training features.
+- Model predicts labels for test images, and accuracy is calculated by comparing predictions with actual labels.
+- A confusion matrix is computed, and a confusion chart is plotted to visualize performance.
+- The trained classifier, AlexNet, and feature extraction layer are saved for future use in deployment.
+
+### 🔮Terraform
+Why did we use Terraform?
+- terraform defines infrastructure using code and helps making infrastructure changes version-controlled and easier to review.
+- it automates the deployment and management of all required resources.
+Our Motive
+- to use Terraform as the next step after app prototyping as a strategic move to transition from a development phase to a scalable, maintainable, and production-ready infrastructure.
+Our Uses
+- backend.tf: enables remote state management -- terraform state is stored in S3, enabling collaboration and locking with DynamoDB to prevent simultaneous updates.
+- variables.tf: file helps centralize configuration values. defined to easily adjust values like the AWS region, EC2 instance type, MongoDB credentials, and SSH key.
+- s3.tf: sets up an S3 bucket to store ML models and data, with versioning and server-side encryption for security.
+- iam.tf: defines IAM roles and policies, providing Lambda functions with necessary permissions to access and manipulate data in the S3 bucket.
+- landa.tf: deploys the Lambda function that processes ML models, with permissions to access the S3 bucket. currently implemented in JS --> goal is for centralization via lambda functions
+- ec2.tf: sets up an EC2 instance for the ML environment, installing Python, dependencies, and MATLAB runtime.
+- mongodb.tf: integrates MongoDB Atlas, creating a MongoDB cluster, users, and configuring IP whitelisting.
+- Integrating these versatile Terraform capabilities to demonstrate robust, scalable, and automated infrastructure management for our deployment.
+
+
 ### 📊MATLAB
-MATLAB is where we did a lot of things....
+Why MATLAB, not Python?
+- 35 min vs. 1 min: Longer training with data-intensive tasks (PyTorch/TensorFlow).
+- Low vs. high accuracy: Accuracy varies based on precision.
+- Confusion Matrix: Shows impact of low number precision on accuracy.
+
+4 different scripts
+- create_dataset: helps in creating large dataset for training on computer
+- photo_resize_matlab: resizes and prepares dataset from pictures uploaded by users (mongodb integrated)
+- training: trains the model
+- deployment: (mimics the camera on the app) real-time feedback GOOD or BAD angle.
+
+
 
 ## 💢Challenges
-Throughout our hackathon journey, integrating all the components of 90° was the biggest challenge for the team. Bringing together the front-end, back-end, AI/ML models, and deployment processes in a coherent matter brought several issues and technical blocks to our team. Ensuring that the AI-driven angle detection interacts smoothly with the user interface, while also managing real-time camera functions, proved to be complex.
+Throughout our hackathon journey, integrating all the components of 90° was the biggest challenge for the team. Bringing together the front-end, back-end, AI/ML models, and deployment processes in a coherent matter brought several issues and technical blocks to our team. Ensuring that the AI-driven angle detection interacts smoothly with the user interface, while also managing real-time camera functions, proved to be complex. We found that high volumes of localised code and datasets were not supported by Github, which made the whole process a little difficult as well. Moreover, we also lost some data along with the ec2 server, which caused difficulties as well.
 
-Additionally, one of our teammates’s Amazon AWS ‘super secret key’ accidentally got leaked onto a public GitHub repository, which caused an unexpected delay in our hacking journey. Luckily, we were able to fix it as soon as possible and did not have further security breaches. Through this situation, we learned the critical importance of safeguarding sensitive information, such as API keys and credentials, especially when collaborating on public platforms like GitHub. 
+Additionally, one of our teammates’s AWS ‘super secret key’ accidentally got leaked onto a public GitHub repository, which caused an unexpected delay in our hacking journey. Luckily, we were able to fix it as soon as possible and did not have further security breaches. Through this situation, we learned the critical importance of safeguarding sensitive information, such as API keys and credentials, especially when collaborating on public platforms like GitHub. 
 
 Despite these insane situations, we were still able to come through all situations and display our final app - 90°.
+
 
 ## 🚀Try it Out
 Here’s the link to our Figma prototype: https://www.figma.com/proto/POstEeFOL4tMNcIxw6VO98/90-degrees?node-id=55-3&starting-point-node-id=55%3A3
