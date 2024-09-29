@@ -14,9 +14,9 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { useRouter } from "expo-router";
 import { useMutation } from "@tanstack/react-query";
-import { loginUser } from "./(services)/api/api";
+import { loginUser } from "../(services)/api/api";
 import { useDispatch, useSelector } from "react-redux";
-import { loginAction } from "./(redux)/authSlice";
+import { loginAction } from "../(redux)/authSlice";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -52,7 +52,7 @@ export default function App() {
             height: Dimensions.get("window").height * 0.3,
             resizeMode: "contain",
             marginTop: 20,
-          }}source={require("../assets/logo.png")} />
+          }}source={require("../../assets/logo.png")} />
           <Formik
           initialValues={{ email: "", password: "" }}
           validationSchema={LoginSchema}
