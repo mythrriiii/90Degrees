@@ -2,8 +2,64 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
 const User = require("../model/User");
+const Image = require('../model/Image');
+const AWS = require('aws-sdk');
+require('dotenv').config();
+
+const s3 = new AWS.S3({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION,
+});
+
+const uploadImage = async (req, res) => {
+  const file = req.file;
+  const params = {
+    Bucket: process.env.AWS_BUCKET_NAME,
+    Key: `${Date.now()}-${file.originalname}`,
+    Body: file.buffer,
+    ContentType: file.mimetype,
+  };
+
+  try {
+    const s3Result = await s3.upload(params).promise();
+    const imageUrl = s3Result.Location;
+
+    // Save image URL to MongoDB
+    const image = new Image({ url: imageUrl });
+    await image.save();
+
+    res.json({ imageUrl });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error uploading image' });
+  }
+};
 
 const userCtrl = {
+  uploadImage: asyncHandler(async (req, res) => {
+    const file = req.file;
+    const params = {
+      Bucket: process.env.AWS_BUCKET_NAME,
+      Key: `${Date.now()}-${file.originalname}`,
+      Body: file.buffer,
+      ContentType: file.mimetype,
+    };
+
+    try {
+      const s3Result = await s3.upload(params).promise();
+      const imageUrl = s3Result.Location;
+
+      // Save image URL to MongoDB
+      const image = new Image({ url: imageUrl });
+      await image.save();
+
+      res.json({ imageUrl });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error uploading image' });
+    }
+  }),
   //!Register
   register: asyncHandler(async (req, res) => {
     const { email, password } = req.body;
