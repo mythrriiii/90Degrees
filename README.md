@@ -115,6 +115,7 @@ Our model effectively combines deep learning (for feature extraction via AlexNet
 
 ### 🔮Terraform
 https://drive.google.com/file/d/1AoAbIwdtFBxKC9_TU8Agc15NkmT_UZ3B/view?usp=sharing
+
 Why did we use Terraform?
 - terraform defines infrastructure using code and helps making infrastructure changes version-controlled and easier to review.
 - it automates the deployment and management of all required resources.
@@ -134,6 +135,7 @@ Our Uses
 ### 📊MATLAB
 https://drive.google.com/file/d/1I6-bOCwL-JyrnUvwhjeBCEymVhUD_GNf/view?usp=sharing
 https://drive.google.com/file/d/1Kw85iNO44HHcxagics6f_k16qZXf_qwt/view?usp=sharing
+
 Why MATLAB, not Python?
 - 35 min vs. 1 min: Longer training with data-intensive tasks (PyTorch/TensorFlow).
 - Low vs. high accuracy: Accuracy varies based on precision.
