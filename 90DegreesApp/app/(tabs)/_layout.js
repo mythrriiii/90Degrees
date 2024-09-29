@@ -1,8 +1,10 @@
 import { Tabs } from "expo-router";
 import { FontAwesome } from "@expo/vector-icons";
+
 export default function RootLayout() {
   return (
     <Tabs>
+      {/* Home Tab */}
       <Tabs.Screen
         name="index"
         options={{
@@ -13,8 +15,18 @@ export default function RootLayout() {
           ),
         }}
       />
-      {/* profile */}
-
+      {/* Camera Tab */}
+      <Tabs.Screen
+        name="camera"
+        options={{
+          headerShown: false,
+          title: "Camera",
+          tabBarIcon: ({ color }) => (
+            <FontAwesome size={24} name="camera" color={color} />
+          ),
+        }}
+      />
+      {/* Profile Tab */}
       <Tabs.Screen
         name="profile"
         options={{
@@ -25,6 +37,7 @@ export default function RootLayout() {
           ),
         }}
       />
+      {/* Settings Tab */}
       <Tabs.Screen
         name="settings"
         options={{
@@ -32,16 +45,6 @@ export default function RootLayout() {
           headerStyle: { backgroundColor: "#0097B280" },
           tabBarIcon: ({ color }) => (
             <FontAwesome size={28} name="cog" color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="camera"
-        options={{
-          headerShown: false,
-          title: "Camera",
-          tabBarIcon: ({ color }) => (
-            <FontAwesome size={24} name="camera" color={color} />
           ),
         }}
       />
