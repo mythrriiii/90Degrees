@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "https://soft-forks-double.loca.lt/";
+const url = "https://cuddly-sloths-relate.loca.lt";
 
 // Register User
 export const registerUser = async (user) => {

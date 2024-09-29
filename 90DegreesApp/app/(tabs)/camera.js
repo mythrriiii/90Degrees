@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, Image, Alert } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Image, Alert, Button } from 'react-native';
 import Constants from 'expo-constants';
 import { Camera, CameraView } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
