@@ -1,4 +1,4 @@
-# 90 Degrees
+# 90°
 
 Ever dread having to take pictures because people can never seem to get your angles right? You hand over your phone, spend ages just explaining how you want things to be, treading the line between instructions and being ungrateful, just to end up with 258 terrible pictures in your photo gallery. Not one perfect picture.
 
