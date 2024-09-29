@@ -114,7 +114,9 @@ Our model effectively combines deep learning (for feature extraction via AlexNet
 - The trained classifier, AlexNet, and feature extraction layer are saved for future use in deployment.
 
 ### 🔮Terraform
+
 https://drive.google.com/file/d/1AoAbIwdtFBxKC9_TU8Agc15NkmT_UZ3B/view?usp=sharing
+
 
 Why did we use Terraform?
 - terraform defines infrastructure using code and helps making infrastructure changes version-controlled and easier to review.
@@ -129,12 +131,16 @@ Our Uses
 - landa.tf: deploys the Lambda function that processes ML models, with permissions to access the S3 bucket. currently implemented in JS --> goal is for centralization via lambda functions
 - ec2.tf: sets up an EC2 instance for the ML environment, installing Python, dependencies, and MATLAB runtime.
 - mongodb.tf: integrates MongoDB Atlas, creating a MongoDB cluster, users, and configuring IP whitelisting.
-- Integrating these versatile Terraform capabilities to demonstrate robust, scalable, and automated infrastructure management for our deployment.
+- Integrating these versatile Terraform capabilities to demonstrate robust, scalable, and automated infrastructure management for our deployment. 
+
 
 
 ### 📊MATLAB
+
 https://drive.google.com/file/d/1I6-bOCwL-JyrnUvwhjeBCEymVhUD_GNf/view?usp=sharing
 https://drive.google.com/file/d/1Kw85iNO44HHcxagics6f_k16qZXf_qwt/view?usp=sharing
+
+
 
 Why MATLAB, not Python?
 - 35 min vs. 1 min: Longer training with data-intensive tasks (PyTorch/TensorFlow).
@@ -147,9 +153,9 @@ Why MATLAB, not Python?
 - training: trains the model
 - deployment: (mimics the camera on the app) real-time feedback GOOD or BAD angle.
 
-<img width="151" alt="Training data" src="https://github.com/user-attachments/assets/be0b2026-d787-4b73-98de-a6ebf0e3eadf">
+<img height="300" alt="Training data" src="https://github.com/user-attachments/assets/be0b2026-d787-4b73-98de-a6ebf0e3eadf">
 
-<img width="419" alt="Confusion matrix" src="https://github.com/user-attachments/assets/48e229d2-0d9b-455d-9075-38f9ffb40a92">
+<img width="300" alt="Confusion matrix" src="https://github.com/user-attachments/assets/48e229d2-0d9b-455d-9075-38f9ffb40a92">
 
 
 
@@ -159,6 +165,9 @@ Throughout our hackathon journey, integrating all the components of 90° was the
 Additionally, one of our teammates’s AWS ‘super secret key’ accidentally got leaked onto a public GitHub repository, which caused an unexpected delay in our hacking journey. Luckily, we were able to fix it as soon as possible and did not have further security breaches. Through this situation, we learned the critical importance of safeguarding sensitive information, such as API keys and credentials, especially when collaborating on public platforms like GitHub. 
 
 Despite these insane situations, we were still able to come through all situations and display our final app - 90°.
+
+<img width="391" alt="Big file" src="https://github.com/user-attachments/assets/67f0158f-c4b6-427e-83f1-4ec6739ac542">
+
 
 
 ## 🚀Try it Out
@@ -171,6 +180,9 @@ For the server to work, you will likely need to create your own firebase project
 
 ## 🎯Target Audience
 We made this app for anyone who wants good photos of themselves. Just download our app, select your favourites, and hand the phone over to anyone for the most perfect photo of your life.
+
+![image](https://github.com/user-attachments/assets/3d5dbe36-eeab-46cc-b25d-f3fecbf437c9)
+
 
 ## 🚀Future Prospects
 - **Accessibility:** We want to make our app accessible to people hard of hearing and sight as we aim to include anyone in our target audience.
