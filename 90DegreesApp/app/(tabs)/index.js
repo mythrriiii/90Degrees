@@ -3,10 +3,13 @@ import { StyleSheet, Text, View, Button, Image, Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system"; // To get image file data
 import { createImage } from "../(services)/api/api"; // Import the createImage function
+import { useSelector } from "react-redux";
+
 
 const TabHome = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [uploading, setUploading] = useState(false);
+  const user = useSelector((state) => state.auth.user);
 
   const pickImage = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -44,7 +47,7 @@ const TabHome = () => {
       };
 
       // Call the createImage API to upload the image
-      const response = await createImage(file);
+      const response = await createImage(file, user.email);
       
       // Handle the response
       console.log(response.imageUrl);

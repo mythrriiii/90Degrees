@@ -51,7 +51,7 @@ const userCtrl = {
       const imageUrl = s3Result.Location;
 
       // Save image URL to MongoDB
-      const image = new Image({ url: imageUrl });
+      const image = new Image({ url: imageUrl, email: req.body.email });
       await image.save();
 
       res.json({ imageUrl });
