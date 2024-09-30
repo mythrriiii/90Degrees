@@ -4,6 +4,12 @@ Ever dread having to take pictures because people can never seem to get your ang
 
 But don't worry now! We are here to help you always capture your right angles. 
 
+## Winner - Hack GT 11
+**Best Use of MATLAB**
+
+[Hack GT Devpost Link](https://devpost.com/software/90)
+
+
 <img src="https://github.com/user-attachments/assets/82543d87-895b-4abc-9117-98ad6f139cb5" width="400"/>
 
 
@@ -148,6 +154,8 @@ Additionally the pictures clicked are automatically stored in the User's ohone g
 
 ### 🍃Machine Learning Model
 Our model effectively combines deep learning (for feature extraction via AlexNet) and classical machine learning (SVM) to classify the images in your dataset.
+
+DONE COMPLETELY ON MATLAB
 - Supervised binary classifier: Class 0 and Class 1.
 - Dataset is split into 80% training and 20% testing.
 - Uses AlexNet (a pretrained CNN) to extract features from images using the 'fc7' fully connected layer.
